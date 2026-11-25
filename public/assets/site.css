@@ -112,8 +112,7 @@ details summary{cursor:pointer;font-weight:700;padding:.4rem 0}
 .method li{margin-bottom:.5rem}
 .checks{list-style:none;padding:0;margin:0 0 2rem;display:grid;gap:.6rem;max-width:70ch}
 .checks li{padding-inline-start:1.8rem;position:relative}
-.checks li::before{content:"";position:absolute;inset-inline-start:.2rem;top:.5em;width:.9rem;height:.5rem;border-inline-start:3px solid var(--mint);border-bottom:3px solid var(--mint);transform:rotate(-45deg)}
-[dir=rtl] .checks li::before{transform:rotate(45deg) scaleX(-1)}
+.checks li::before{content:"";position:absolute;inset-inline-start:.2rem;top:.5em;width:.9rem;height:.5rem;border-left:3px solid var(--mint);border-bottom:3px solid var(--mint);transform:rotate(-45deg)}
 /* install */
 .before{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:2rem;max-width:62rem}
 .before ol{margin:0;padding-inline-start:1.3rem}
