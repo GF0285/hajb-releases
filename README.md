@@ -26,3 +26,8 @@ Hajb es un bloqueador gratuito de anuncios y rastreadores para Chrome, Edge, Bra
 Filter-list credits and licences are listed on the website and in `NOTICE.md` inside each package. Fonts: Reem Kufi and IBM Plex Sans Arabic (SIL OFL 1.1).
 
 Made with ♥ by GF0285, a member of GeeksFamily and DWM.
+
+## Deploy (maintainer)
+1. Edit copy in `src/t_ar.py`, `src/t_en.py`, `src/t_es.py`; run `python3 src/build.py` (reads sizes and SHA256SUMS from `$HAJB_RELEASE_DIR`).
+2. New version: attach the files to a new GitHub release, update `VERSION` in `src/content_meta.py` and the URLs in `public/_redirects`.
+3. `WRANGLER_CACHE_DIR=.wrangler/cache wrangler deploy` (Worker `hajb`, static assets only, free plan).
