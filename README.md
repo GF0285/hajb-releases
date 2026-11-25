@@ -10,7 +10,8 @@ This repository holds **only the public website and the release packages**. Down
 |---|---|
 | `Hajb-2.0.0-chrome.zip` | Chrome, Edge, Brave, Opera, Vivaldi (unzip, then "Load unpacked" in developer mode) |
 | `Hajb-2.0.0-firefox.xpi` | Firefox: **signed** by Mozilla; open the file and confirm to add it (permanent install) |
-| `SHA256SUMS` | checksums of both files |
+| `Hajb-2.0.0-kiwi.zip` | Kiwi Browser and other Android browsers that load a zip directly (manifest at the archive root) |
+| `SHA256SUMS` | checksums |
 
 The full illustrated install guide (every browser, update, removal, FAQ) is on the website.
 

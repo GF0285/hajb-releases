@@ -90,8 +90,11 @@ def page(L):
    <h1>{e(t["hero_h"])}</h1>
    <p class="lead">{e(t["hero_p"])}</p>
    <div class="dls">''')
-    for key, f, sub in (("dl_chrome", CHROME_FILE, "dl_sub_chrome"), ("dl_ff", FF_FILE, "dl_sub_ff")):
-        kind = "chrome" if "chrome" in f else "firefox"
+    for key, f, sub, kind in (
+        ("dl_chrome", CHROME_FILE, "dl_sub_chrome", "chrome"),
+        ("dl_ff", FF_FILE, "dl_sub_ff", "firefox"),
+        ("dl_kiwi", KIWI_FILE, "dl_sub_kiwi", "kiwi"),
+    ):
         w(f'''
     <div class="dl">
      <a class="btn{' btn-main' if kind=='chrome' else ''}" href="/download/{kind}" download="{f}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3v11m0 0 4.5-4.5M12 14 7.5 9.5M4 19h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>{e(t[key])}<small>{e(t[sub])} · {mb(SIZE[f], t)}</small></span></a>
@@ -200,8 +203,16 @@ def page(L):
     w(f'''<section class="panel" id="i-firefox" role="tabpanel" aria-labelledby="tab-firefox"><h3>{e(tabname["firefox"])}</h3>
      <p class="note" role="note">{e(t["ff_note"])}</p>{steps(t["ff_steps"], None)}</section>
     <section class="panel" id="i-android" role="tabpanel" aria-labelledby="tab-android"><h3>{e(tabname["android"])}</h3>
-     <p>{e(t["and_lead"])}</p><ol class="plain">{"".join(f"<li>{x}</li>" for x in t["and_steps"])}</ol>
-     <p class="warn" role="note">{e(t["and_ff"])}</p><p class="fine">{e(t["and_kiwi"])}</p></section>
+     <p>{e(t["and_lead"])}</p>
+     <h4>{e(t["and_kiwi_h"])}</h4>
+     <p><a href="/download/kiwi" download="{KIWI_FILE}"><code>{KIWI_FILE}</code></a></p>
+     <ol class="plain">{"".join(f"<li>{x}</li>" for x in t["and_kiwi_steps"])}</ol>
+     <p class="fine">{e(t["and_kiwi_note"])}</p>
+     <h4>{e(t["and_other_h"])}</h4>
+     <p>{e(t["and_other"])}</p>
+     <h4>{e(t["and_ff_h"])}</h4>
+     <p>{e(t["and_ff"])}</p>
+     <ol class="plain">{"".join(f"<li>{x}</li>" for x in t["and_ff_steps"])}</ol></section>
     <section class="panel" id="i-update" role="tabpanel" aria-labelledby="tab-update"><h3>{e(tabname["update"])}</h3>
      <h4>{e(t["up_h"])}</h4><ol class="plain">{"".join(f"<li>{x}</li>" for x in t["up"])}</ol>
      <figure class="ishot narrow"><a href="/assets/img/install/chrome-reload-{L}.webp">{img(f"/assets/img/install/chrome-reload-{L}.webp", t["up"][2], *isize(f"/assets/img/install/chrome-reload-{L}.webp"))}</a></figure>
