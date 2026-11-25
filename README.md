@@ -9,7 +9,7 @@ This repository holds **only the public website and the release packages**. Down
 | File | For |
 |---|---|
 | `Hajb-2.0.0-chrome.zip` | Chrome, Edge, Brave, Opera, Vivaldi (unzip, then "Load unpacked" in developer mode) |
-| `Hajb-2.0.0-firefox.xpi` | Firefox, **unsigned**: load it as a temporary add-on from `about:debugging` |
+| `Hajb-2.0.0-firefox.xpi` | Firefox: **signed** by Mozilla; open the file and confirm to add it (permanent install) |
 | `SHA256SUMS` | checksums of both files |
 
 The full illustrated install guide (every browser, update, removal, FAQ) is on the website.

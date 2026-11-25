@@ -198,8 +198,7 @@ def page(L):
     for k in ("edge", "brave", "opera", "vivaldi"):
         w(f'<section class="panel" id="i-{k}" role="tabpanel" aria-labelledby="tab-{k}"><h3>{e(tabname[k])}</h3><ol class="plain">{"".join(f"<li>{x}</li>" for x in t[k])}</ol><p class="fine">{e(t["similar"])} <a href="#i-chrome">{e(tabname["chrome"])}</a></p></section>')
     w(f'''<section class="panel" id="i-firefox" role="tabpanel" aria-labelledby="tab-firefox"><h3>{e(tabname["firefox"])}</h3>
-     <p class="warn" role="note">{e(t["ff_warn"])}</p>{steps(t["ff_steps"], None)}<p class="fine">{e(t["shot_note_ff"])}</p>
-     <h4>{e(t["ff_perm_h"])}</h4><ol class="plain">{"".join(f"<li>{x}</li>" for x in t["ff_perm"])}</ol></section>
+     <p class="note" role="note">{e(t["ff_note"])}</p>{steps(t["ff_steps"], None)}</section>
     <section class="panel" id="i-android" role="tabpanel" aria-labelledby="tab-android"><h3>{e(tabname["android"])}</h3>
      <p>{e(t["and_lead"])}</p><ol class="plain">{"".join(f"<li>{x}</li>" for x in t["and_steps"])}</ol>
      <p class="warn" role="note">{e(t["and_ff"])}</p><p class="fine">{e(t["and_kiwi"])}</p></section>
