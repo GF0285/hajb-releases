@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hajb.torshblock.workers.dev/sitemap.xml
