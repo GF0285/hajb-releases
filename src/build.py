@@ -2,9 +2,10 @@ import os, html, importlib, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from content_meta import *
 OUT = os.path.join(os.path.dirname(__file__), "..", "public")
-LANGS = ["ar", "en", "es"]
-PATH = {"ar": "/", "en": "/en/", "es": "/es/"}
-LNAME = {"ar": "العربية", "en": "English", "es": "Español"}
+LANGS = ["ar", "en", "es", "fr"]
+PATH = {"ar": "/", "en": "/en/", "es": "/es/", "fr": "/fr/"}
+LNAME = {"ar": "العربية", "en": "English", "es": "Español", "fr": "Français"}
+SHOTLANG = {"ar": "ar", "en": "en", "es": "es", "fr": "en"}
 
 CREDITS = [
  ("EasyList, EasyPrivacy, Adblock Warning Removal List, Liste AR, EasyList Spanish, Fanboy's lists","https://easylist.to/","GPLv3 / CC BY-SA 3.0"),
@@ -31,7 +32,7 @@ BENCH = [
  ("0","0","0","1",None,None),
  ("1/3","0/3","0/3","0/3",None,None),
 ]
-LANG_SAFE_CODE = {"ar":"ar","en":"en","es":"es"}
+LANG_SAFE_CODE = {"ar":"ar","en":"en","es":"es","fr":"fr"}
 
 def e(s): return html.escape(s, quote=True)
 def mb(n, t): return f"{n/1048576:.1f} {t['mb']}"
@@ -64,20 +65,23 @@ def page(L):
 <meta property="og:type" content="website"><meta property="og:title" content="{e(t["title"])}"><meta property="og:description" content="{e(t["desc"])}"><meta property="og:url" content="{SITE}{PATH[L]}"><meta property="og:image" content="{SITE}/assets/og.png"><meta name="twitter:card" content="summary_large_image">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0e1311" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#eef3ef" media="(prefers-color-scheme: light)">
-<link rel="icon" href="/assets/mark.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/icon128.png">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="/assets/favicon-16.png" type="image/png" sizes="16x16"><link rel="icon" href="/assets/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/plexarabic-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/reemkufi.woff2" as="font" type="font/woff2" crossorigin>
 <script src="/assets/theme.js"></script>
-<link rel="stylesheet" href="/assets/site.css?v=4">
+<link rel="stylesheet" href="/assets/site.css?v=5">
 </head>
 <body>
 <a class="skip" href="#main">{e(t["skip"])}</a>
 <header class="top">
  <div class="wrap top-in">
-  <a class="brand" href="{PATH[L]}" aria-label="{e(t["name"])} – {VERSION}"><img src="/assets/mark.svg" alt="" width="34" height="34"><span>{e(t["name"])}</span></a>
+  <a class="brand" href="{PATH[L]}" aria-label="{e(t["name"])} {VERSION}"><img src="/assets/mark.png" alt="" width="36" height="36"><span>{e(t["name"])}</span></a>
   <nav class="nav" aria-label="{e(t["name"])}"><ul>{"".join(f'<li><a href="#{a}">{e(b)}</a></li>' for a,b in t["nav"])}</ul></nav>
   <div class="tools">
-   <nav aria-label="{e(t["langs"])}" class="langs"><ul>{"".join(f'<li><a href="{PATH[l]}" hreflang="{l}" lang="{l}"' + (' aria-current="page"' if l==L else '') + f'>{LNAME[l]}</a></li>' for l in LANGS)}</ul></nav>
+   <div class="lang-picker" data-lang-picker>
+    <button class="lang-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="lang-menu" aria-label="{e(t["langs"])}: {e(LNAME[L])}"><span>{e(LNAME[L])}</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <ul id="lang-menu" class="lang-menu" role="menu" hidden>{"".join(f'<li role="none"><a role="menuitem" href="{PATH[l]}" hreflang="{l}" lang="{l}"' + (' aria-current="page"' if l==L else '') + f'>{LNAME[l]}</a></li>' for l in LANGS)}</ul>
+   </div>
    <button class="theme" type="button" aria-label="{e(t["theme"])}" title="{e(t["theme"])}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg></button>
   </div>
  </div>
@@ -197,7 +201,7 @@ def page(L):
                 s += f'<figure class="ishot"><a href="{src}">{img(src, h, W, H)}</a></figure>'
             s += '</li>'
         return s + '</ol>'
-    w(f'<section class="panel" id="i-chrome" role="tabpanel" aria-labelledby="tab-chrome"><h3>{e(tabname["chrome"])}</h3>{steps(t["chrome_steps"], L)}<p class="fine">{e(t["shot_note_cr"])}</p></section>')
+    w(f'<section class="panel" id="i-chrome" role="tabpanel" aria-labelledby="tab-chrome"><h3>{e(tabname["chrome"])}</h3>{steps(t["chrome_steps"], SHOTLANG[L])}<p class="fine">{e(t["shot_note_cr"])}</p></section>')
     for k in ("edge", "brave", "opera", "vivaldi"):
         w(f'<section class="panel" id="i-{k}" role="tabpanel" aria-labelledby="tab-{k}"><h3>{e(tabname[k])}</h3><ol class="plain">{"".join(f"<li>{x}</li>" for x in t[k])}</ol><p class="fine">{e(t["similar"])} <a href="#i-chrome">{e(tabname["chrome"])}</a></p></section>')
     w(f'''<section class="panel" id="i-firefox" role="tabpanel" aria-labelledby="tab-firefox"><h3>{e(tabname["firefox"])}</h3>
@@ -215,7 +219,7 @@ def page(L):
      <ol class="plain">{"".join(f"<li>{x}</li>" for x in t["and_ff_steps"])}</ol></section>
     <section class="panel" id="i-update" role="tabpanel" aria-labelledby="tab-update"><h3>{e(tabname["update"])}</h3>
      <h4>{e(t["up_h"])}</h4><ol class="plain">{"".join(f"<li>{x}</li>" for x in t["up"])}</ol>
-     <figure class="ishot narrow"><a href="/assets/img/install/chrome-reload-{L}.webp">{img(f"/assets/img/install/chrome-reload-{L}.webp", t["up"][2], *isize(f"/assets/img/install/chrome-reload-{L}.webp"))}</a></figure>
+     <figure class="ishot narrow"><a href="/assets/img/install/chrome-reload-{SHOTLANG[L]}.webp">{img(f"/assets/img/install/chrome-reload-{SHOTLANG[L]}.webp", t["up"][2], *isize(f"/assets/img/install/chrome-reload-{SHOTLANG[L]}.webp"))}</a></figure>
      <h4>{e(t["un_h"])}</h4><ol class="plain">{"".join(f"<li>{x}</li>" for x in t["un"])}</ol>
      <h4>{e(t["verify_h"])}</h4><p>{e(t["verify_p"])}</p>
      <pre dir="ltr" translate="no"><code>Windows:  certutil -hashfile {CHROME_FILE} SHA256
