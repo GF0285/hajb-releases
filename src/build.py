@@ -68,7 +68,7 @@ def page(L):
 <link rel="preload" href="/assets/fonts/plexarabic-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/reemkufi.woff2" as="font" type="font/woff2" crossorigin>
 <script src="/assets/theme.js"></script>
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 </head>
 <body>
 <a class="skip" href="#main">{e(t["skip"])}</a>
